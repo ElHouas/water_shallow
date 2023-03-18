@@ -12,9 +12,13 @@ endif()
 add_definitions(-Wall -Wextra)
 
 find_package(Boost QUIET)
+find_package(MPI REQUIRED)
 
 # Add source directory
 aux_source_directory("./src" SRC_LIST)
 
+# include_directories(SYSTEM ${MPI_INCLUDE_PATH})
+
 # Add executable
 add_executable(${PROJECT_NAME} ${SRC_LIST})
+# target_link_libraries(${PROJECT_NAME}  ${MPI_C_LIBRARIES})

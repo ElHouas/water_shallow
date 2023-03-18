@@ -4,7 +4,12 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <chrono>
+
+// #include <mpi.h>
+
 using namespace std;
+using namespace std::chrono;
 
 class ShallowWater {
     public:
@@ -274,7 +279,17 @@ int main(int argc, char* argv[]){
 
     W.SetParameters();
     W.SetInitialConditions();
+    // Get starting timepoint
+    auto start = high_resolution_clock::now();
     W.TimeIntegrate();
+    // Get ending timepoint
+    auto stop = high_resolution_clock::now();
+
+    // Get duration in specified time unit
+    auto duration = duration_cast<seconds>(stop - start);
+
+    cout << "Time taken by function: " << duration.count() << " seconds" << endl;
+
     W.DeleteParameters();
 
     return 0;
